@@ -316,9 +316,15 @@ def stream(request, path):
     new_file_path = '/tmp' + file_path_without_ext + '.ogg'
 
     if not os.path.isfile(new_file_path):
-        transcode_thread = threading.Thread(target=audiotranscode.AudioTranscode().transcode,
-            args=(file_path, new_file_path))
-        transcode_thread.start()
+        transcode_audio(file_path, new_file_path)
+
+        return StreamingHttpResponse(
+            stream_audio(file_path),
+            content_type=mime_type
+        )
+
+    if TinyTag.get(str(file_path)).duration != TinyTag.get(str(new_file_path)).duration:
+        transcode_audio(file_path, new_file_path)
 
         return StreamingHttpResponse(
             stream_audio(file_path),
@@ -333,6 +339,11 @@ def stream(request, path):
         attachment=False,
         mimetype=mime_type,
     )
+
+def transcode_audio(file_path, new_file_path):
+    transcode_thread = threading.Thread(target=audiotranscode.AudioTranscode().transcode,
+        args=(file_path, new_file_path))
+    transcode_thread.start()
 
 def stream_audio(audiofile):
     yield from audiotranscode.AudioTranscode().transcode_stream(audiofile, newformat='ogg')
