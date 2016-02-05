@@ -8,7 +8,8 @@ docker-compose build web
 docker-compose -f test.yml build
 docker-compose -f test.yml up -d
 
-while ! docker-compose -f test.yml run --rm web_test psql --host=postgres --username=postgres -c 'SELECT 1'; do
+while ! docker-compose -f test.yml run -T --rm web_test psql --host=postgres \
+    --username=postgres -c 'SELECT 1'; do
   echo 'Waiting for postgres...'
   sleep 1;
 done;
