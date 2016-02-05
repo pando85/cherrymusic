@@ -323,14 +323,6 @@ def stream(request, path):
             content_type=mime_type
         )
 
-    if TinyTag.get(str(file_path)).duration != TinyTag.get(str(new_file_path)).duration:
-        transcode_audio(file_path, new_file_path)
-
-        return StreamingHttpResponse(
-            stream_audio(file_path),
-            content_type=mime_type
-        )
-
     return sendfile(
         request,
         new_file_path,
