@@ -2,7 +2,7 @@ CherryMusic
 ===========
 [![Build Status](https://travis-ci.org/pando85/cherrymusic.svg?branch=devel-django)](https://travis-ci.org/pando85/cherrymusic)
 
-This is a rewrite of CherryMusic to be based on django.
+This is a rewrite of CherryMusic based on django.
 
 You can test it at:
 http://music.openrock.mooo.com/
