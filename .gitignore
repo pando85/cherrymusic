@@ -66,6 +66,7 @@ cherrymusic/venv/
 /static
 /venv
 
+postgresql
 *.db
 .DS_Store
 .idea
