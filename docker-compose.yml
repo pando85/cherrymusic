@@ -26,11 +26,17 @@ postgres:
     file: docker-compose.base.yml
     service: postgres
   restart: always
-  volumes:
-    - ./postgresql:/var/lib/postgresql
-    
+  volumes_from:
+    - data
+
 redis:
   extends:
     file: docker-compose.base.yml
     service: redis
+  restart: always
+
+data:
+  extends:
+    file: docker-compose.base.yml
+    service: data
   restart: always
